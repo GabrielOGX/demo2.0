@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.Form.Deficiencia.DeficienciaForm;
 import com.example.demo.Model.Deficiencia;
+import com.example.demo.Model.Pessoa;
 import com.example.demo.Model.Categoria;
 import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.CategoriaRepository;
@@ -35,8 +37,10 @@ public class DeficienciaController {
     private DeficienciaService deficienciaService;
 
     @GetMapping("/deficiencia")
-    public String index(Model model) {
-        List<Deficiencia> listaDeficiencias = deficienciaRepository.findAll();
+     public String index(Model model, @RequestParam("display") Optional<String> display){
+        String finalDisplay = display.orElse("true");
+
+        List<Deficiencia> listaDeficiencias = deficienciaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
         model.addAttribute("listaDeficiencias", listaDeficiencias);
         return "deficiencia/listar";
     }
@@ -108,5 +112,25 @@ public class DeficienciaController {
         
         model.addAttribute("deficienciaForm", deficienciaForm);
         return "deficiencia/visualizar";
+    }
+
+    @GetMapping("/deficiencia/remover/{id}")
+    public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<Deficiencia> deficiencia = this.deficienciaRepository.findById(id);
+        Deficiencia deficienciaModel = deficiencia.get();
+
+        if (deficienciaModel.isAtivo()) {
+            deficienciaModel.setAtivo(false);    
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Excluído com sucesso!");
+        }else{
+            deficienciaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Recuperado com sucesso!");
+        }
+        
+        this.deficienciaRepository.save(deficienciaModel);
+        
+        return "redirect:/deficiencia";        
     }
 }

@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: layout}">
     <body th:fragment="content">          
-        <form th:action="@{/deficiencia/update(id=${deficienciaForm.id})}" th:object="${deficienciaForm}" method="post">
+        <form th:action="@{/deficiencia/update/{id}(id=${id})}" th:object="${deficienciaForm}" method="post">
             <div class="card mt-2">
                 <div class="card-header">
                     <h3 class="card-title">Formulário de Atualização</h3>
@@ -17,17 +17,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="categoria" class="form-label">Categoria:</label>
-                            <select id="categoria" class="form-select" th:field="*{categoria}">
-                                <option th:each="categoria : ${listCategorias}"
+                            <select id="categoria" class="form-select" th:field="*{categoriaId}">
+                                <option th:each="categoria : *{listCategorias}"
                                         th:value="${categoria.id}"
                                         th:text="${categoria.nome}">
                                 </option>                    
                             </select>
-                            <div th:if="${errors != null && #fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="deficiencia" class="form-label">Deficiência:</label>
-                            <textarea id="deficiencia" th:field="*{deficiencia}" class="form-control" placeholder="Descrição da deficiência..."></textarea>
+                            <div th:if="${errors != null && #fields.hasErrors('categoriaId')}" th:errors="*{categoriaId}"></div>
                         </div>
                     </div>
                 </div>
