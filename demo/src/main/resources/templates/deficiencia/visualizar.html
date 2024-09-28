@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome:</label>
-                        <input disabled type="text" id="nome" placeholder="Ex.: Deficiência Visual" th:field="*{nome}" class="form-control">
+                        <input disabled type="text" id="nome" placeholder="Ex.: Deficiência Física" th:field="*{nome}" class="form-control">
                         <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                     </div>
                     <div class="mb-3 col-md-3">

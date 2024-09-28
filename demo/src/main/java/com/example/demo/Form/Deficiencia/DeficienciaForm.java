@@ -19,24 +19,13 @@ public class DeficienciaForm {
     private String nome;
 
     @NotNull(message = "Preencha o campo Categoria.")
-    private Categoria categoria;
+    private Long categoriaId;
 
     private List<Categoria> listCategorias;
 
-    private List<Deficiencia> listDeficiencias;
-
     public DeficienciaForm(Deficiencia deficiencia) {
         this.nome = deficiencia.getNome();
-        this.categoria = deficiencia.getCategoria();
-    }
-
-
-    public List<Deficiencia> getListDeficiencias() {
-        return listDeficiencias;
-    }
-
-    public void setListDeficiencias(List<Deficiencia> listDeficiencias) {
-        this.listDeficiencias = listDeficiencias;
+        this.categoriaId = deficiencia.getCategoria().getId();
     }
 
     public List<Categoria> getListCategorias() {

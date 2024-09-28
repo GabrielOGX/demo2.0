@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.demo.Enum.Sexo;
 import com.example.demo.Model.Deficiencia;
 import com.example.demo.Model.Pessoa;
-import com.example.demo.Repository.DeficienciaRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;

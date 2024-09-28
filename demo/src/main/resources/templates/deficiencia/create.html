@@ -12,13 +12,13 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome da Deficiência:</label>
-                            <input required type="text" id="nome" placeholder="Ex.: Deficiência Visual" th:field="*{nome}" class="form-control">
+                            <input required type="text" id="nome" placeholder="Ex.: TDAH" th:field="*{nome}" class="form-control">
                             <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="categoria" class="form-label">Categoria:</label>
-                            <select id="categoria" class="form-select" th:field="*{categoria}">
-                                <option th:each="categoria : ${listCategorias}"
+                            <select id="categoria" class="form-select" th:field="*{categoriaId}">
+                                <option th:each="categoria : *{listCategorias}"
                                         th:value="${categoria.id}"
                                         th:text="${categoria.nome}">
                                 </option>
